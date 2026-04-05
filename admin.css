@@ -1,0 +1,157 @@
+:root {
+    --primary: #4f46e5;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --dark: #1e293b;
+    --bg: #f8fafc;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--dark);
+}
+
+/* Navbar */
+.navbar {
+    background: var(--dark);
+    padding: 1rem 2rem;
+    color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.logout-btn {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    opacity: 0.8;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* Table Design */
+.table-wrapper {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.custom-table th {
+    background: #f1f5f9;
+    padding: 15px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.custom-table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 15px;
+}
+
+.custom-table tr:hover {
+    background: #fdfdfd;
+}
+
+/* Status Badges */
+.status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pending { background: #fef3c7; color: #b45309; }
+.approved { background: #dcfce7; color: #15803d; }
+.rejected { background: #fee2e2; color: #b91c1c; }
+
+/* Action Buttons */
+.btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-approve { background: var(--success); color: white; }
+.btn-reject { background: var(--danger); color: white; }
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .table-wrapper {
+        overflow-x: auto;
+    }
+}

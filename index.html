@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Saylani Clone Form</title>
+</head>
+
+<body>
+    <a href="/dashboard.html"></a>
+    <div class="containor" id="loginSection">
+        <h1>Login</h1>
+        <label>Email:</label>
+        <input type="email" id="loginEmail" placeholder="Enter registered email">
+        <label>Password</label>
+        <input type="password" placeholder="Enter your CINIC" id="loginPassword">
+        <button id="loginBTN" class="btn">Login</button>
+        <p id="logintoform">Don't Have an account?</p>
+    </div>
+
+    <div id="createAccount" class="containor createaccount" style="display: none;">
+    <h1>Create Account</h1>
+    <form id="createaccform">
+        <label for="userName">Name:</label>
+        <input type="text" id="userName" placeholder="Enter Your Name">
+
+        <label for="userEmail">Email:</label>
+        <input type="email" id="userEmail" placeholder="Enter Your Email">
+
+        <label for="userFather">Father Name:</label>
+        <input type="text" id="userFather" placeholder="Enter your father name">
+
+        <label>Select Gender:</label>
+        <div class="gender-container">
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male" class="radio-label">Male</label>
+            
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female" class="radio-label">Female</label>
+        </div>
+
+        <label for="userbirthDate">Date Of Birth:</label>
+        <input type="date" id="userbirthDate">
+
+        <label for="userCnic">CNIC:</label>
+        <input type="number" placeholder="Enter your CNIC" id="userCnic">
+
+        <label for="userNumber">Contact Number:</label>
+        <input type="number" id="userNumber" placeholder="Enter your active number">
+
+        <label for="Corses">Select Course:</label>
+        <select id="Corses">
+            <option value="" disabled selected>Choose a course</option>
+            <option value="Web & App">Web & App development</option>
+            <option value="Phyton programming">Python Programming</option>
+            <option value="Agentic AI">Agentic AI</option>
+            <option value="flutter App">Flutter App development with AI</option>
+            <option value="DG marketing">Digital Marketing</option>
+        </select>
+
+        <button type="submit" id="formSumbit" class="btn">Create Account</button>
+    </form>
+    <p id="formtologin">Already have an Account?</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="app.js"></script>
+</body>
+
+</html>

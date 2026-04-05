@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="logo">Admin<span>Portal</span></h2>
+            <button id="adminlogout" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="header-flex">
+            <h1>User Management</h1>
+            <div id="userCount" class="stat-card">Total Users: 0</div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>CNIC</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+
+    <script>
+    let adminKey = localStorage.getItem('admin'); 
+    let loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
+    let logOutadmin = document.getElementById('adminlogout');
+    
+    // Global array load karein
+    let allUser = JSON.parse(localStorage.getItem('allUser')) || [];
+    let adminTable = document.getElementById('adminTableBody');
+
+    // Security Check (Uncomment it for real use)
+    if (adminKey !== "xk82_admin_99" || !loggedInUser || loggedInUser.email !== "admin@gmail.com") {
+        window.location.href = "index.html";
+    }
+
+    // Logout logic
+    logOutadmin.addEventListener('click', () => {
+        Swal.fire({
+    title: 'Logout Admin?',
+    text: 'Are you sure you want to exit?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    confirmButtonText: 'Yes, Logout',
+    cancelButtonText: 'Cancel'
+}).then((result) => {
+    if (result.isConfirmed) {
+        Swal.fire({
+            title: 'Logging Out...',
+            text: 'Please wait, clearing session.',
+            icon: 'info',
+            timer: 1500, 
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading(); 
+            }
+        }).then(() => {
+            localStorage.removeItem('admin');
+            localStorage.removeItem('currentUser');
+            window.location.href = "index.html";
+        });
+    }
+});
+    });
+
+    // Render Table Function
+    function renderTable() {
+        if (!adminTable) return;
+        adminTable.innerHTML = '';
+        
+        // Filter users (excluding admin)
+        const usersOnly = allUser.filter(u => u.email !== "admin@gmail.com");
+        document.getElementById('userCount').innerHTML = `Total User = ${usersOnly.length}`;
+
+        for (var i = 0; i < usersOnly.length; i++) {
+            let user = usersOnly[i];
+            adminTable.innerHTML += `
+            <tr>
+                <td><b>${user.name}</b></td>
+                <td>${user.email}</td>
+                <td>${user.cnic}</td>
+                <td><span class="status ${user.status}">${user.status}</span></td>
+                <td>
+                    <select class="status-select" onchange="updateStatus('${user.email}', this.value)">
+                        <option value="pending" ${user.status === 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="approved" ${user.status === 'approved' ? 'selected' : ''}>Approved</option>
+                    </select>
+                </td>
+            </tr>`;
+        }
+    }
+
+    // UPDATE STATUS FUNCTION
+    window.updateStatus = function(email, newstatus) {
+        // Pura data dobara fetch karein taake latest array mile
+        let currentUsers = JSON.parse(localStorage.getItem('allUser')) || [];
+        
+        // Index dhoondein
+        let userIndex = currentUsers.findIndex(u => u.email === email);
+
+        if (userIndex !== -1) {
+            // Status update karein
+            currentUsers[userIndex].status = newstatus;
+
+            // LocalStorage mein save karein
+            localStorage.setItem('allUser', JSON.stringify(currentUsers));
+            
+            // Global variable ko bhi update karein taake render sahi ho
+            allUser = currentUsers;
+
+            // Table refresh karein
+            renderTable();
+
+            Swal.fire({
+                title: 'Status Updated!',
+                text: `User is now ${newstatus}`,
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+    }
+
+    // Initial load
+    renderTable();
+
+    </script>
+</body>
+
+</html>
